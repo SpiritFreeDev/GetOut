@@ -1,0 +1,5 @@
+instance/
+stuff/
+config.py
+__pycache__/
+views/__pycache__/
