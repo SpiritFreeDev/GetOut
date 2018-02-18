@@ -1,9 +1,23 @@
 #------------http://flask.pocoo.org/docs/0.12/quickstart/
+#
+# For production in Python anywhere
+# In the Code section of the Web tab on the dashboard,
+# click on the link to the WSGI configuration file.
+# MAKE SURE YOU SET THE ENV VARIABLE
+# os.environ["FLASK_CONFIG"] = "production"
+# os.environ['SECRET_KEY'] = 'p9Bv<3Eid9%$i01'
+# os.environ['SQLALCHEMY_DATABASE_URI'] = 'mysql://your-username:your-password@your-host-address/your-database-name'
+#
+# config_name = os.environ.get("FLASK_CONFIG")
+# $env:FLASK_APP = "run.py"
+#
 import os
 from app import create_app
 from flask import Flask, render_template, flash, redirect, url_for, request, logging
 
-config_name = 'development'
+# For dev set the FLASK_CONFIG env var
+# os.environ["FLASK_CONFIG"] = "development"
+config_name = os.environ.get("FLASK_CONFIG")
 path = os.path.join(os.path.abspath(os.curdir), 'instance')
 myapp = create_app(config_name, path)
 
@@ -46,13 +60,13 @@ def index():
      </div>
     </header>
     <body>
-        
+
     </body>
 </html>'''
 
 @myapp.route('/about')
 def about():
-   return render_template('about.html')
+   return render_template('app/modules/home/about.html')
 
 # Need 2 functions do_the_login() et show_the_login_form()
 

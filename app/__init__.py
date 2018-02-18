@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, flash, abort, Blueprint
 #from flask_sqlalchemy import SQLAlchemy, inspect
 #from flask_migrate import Migrate
@@ -7,9 +8,16 @@ from config import app_config
 #db = SQLAlchemy()
 
 def create_app(config_name, path):
-    app = Flask(__name__.split('.')[0], instance_path=path, instance_relative_config=True)
-    app.config.from_object(app_config[config_name])
-    app.config.from_pyfile('config.cfg')
+    if os.getenv('FLASK_CONFIG') == "production":
+        app = Flask(__name__.split('.')[0])
+        app.config.update(
+            SECRET_KEY=os.getenv('SECRET_KEY'),
+            #SQLALCHEMY_DATABASE_URI=os.getenv('SQLALCHEMY_DATABASE_URI')
+        )
+    else:
+        app = Flask(__name__.split('.')[0], instance_path=path, instance_relative_config=True)
+        app.config.from_object(app_config[config_name])
+        app.config.from_pyfile('config.cfg')
 
     # --- Database
     #db.init_app(app)
