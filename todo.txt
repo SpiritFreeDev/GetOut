@@ -8,3 +8,8 @@ https://github.com/agiliq/merchant
 
 https://agiliq.com/
 
+
+Use SASS with materialize
+
+
+# Decide is user deletion is permanent in the DB or just archiving with access locked

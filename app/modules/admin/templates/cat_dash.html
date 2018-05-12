@@ -1,0 +1,75 @@
+{% extends 'adminlayout.html' %}
+
+{% block body %}
+  <div class="container center black-text">
+    <h1> <span class="purple-text text-darken-2">Category</span> Dashboard</h1>
+    <p>Add, Edit, Delete categories</p>
+  </div>
+  {% if cats %}
+  <div class="row">
+    <div id="cat" class="col s12">
+      <div class="card material-table">
+        <div class="table-header">
+          <span class="table-title">Categories ({{count}})</span>
+          <div class="actions">
+            <a href="/admin/add_cat" class="modal-trigger waves-effect btn-flat tooltipped nopadding" data-position="top" data-tooltip="Add a Category"><i class="material-icons">add</i></a>
+            <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
+          </div>
+        </div>
+        <table id="datatable">
+          <thead class="light-blue accent-1">
+              <tr>
+                  <th>Category</th>
+                  <th>Description</th>
+                  <th>Sub category</th>
+                  <th>Details</th>
+                  <th>Actions</th>
+                  <th>Lock/Unlock</th>
+                  <th>Delete</th>
+              </tr>
+          </thead>
+          <tbody>
+            {% for cat in cats %}
+                <tr>
+                  <td>{{cat.cat_name}}</a></td>
+                  <td>{{cat.cat_description}}</a></td>
+                  <td>{{cat.subcat_name}}</td>
+                  <td>{{cat.subcat_description}}</a></td>
+                  <td>{{cat.email}}</td>
+                  <td>{{cat.catregister_date}}</td>
+                  <td >
+                    <a href="edit_cat/{{cat.cat_id}}" class="modal-trigger waves-effect btn-flat tooltipped nopadding" data-position="top" data-tooltip="Edit" style="padding-left:0px !important;"><i class="material-icons blue-text" >edit</i></a>
+                    <!-- <a href="" class="modal-trigger waves-effect btn-flat tooltipped nopadding" data-position="top" data-tooltip="cat History" style="padding-left:0px !important;"><i class="material-icons" >history</i></a> -->
+                  </td>
+                  <td>
+                    {% if cat.is_locked %}
+                      <form action="{{ url_for('admin.lock_cat_toggle', id=cat.cat_id) }}" method="post">
+                        <button type="submit" class="btn btn-flat tooltipped red-text"  data-position="top" data-tooltip="Unlock Category"  style="padding-left:0px !important;"><i class="material-icons">lock_outline</i></button>
+                      </form>
+                    {% else %}
+                      <form action="{{ url_for('admin.lock_cat_toggle', id=cat.cat_id) }}" method="post">
+                        <button type="submit" class="btn btn-flat tooltipped green-text"  data-position="top" data-tooltip="Lock Category"  style="padding-left:0px !important;"><i class="material-icons">lock_open</i></button>
+                      </form>
+                    {% endif %}
+                  </td>
+                  <td>
+                    <form action="{{ url_for('admin.delete_cat', id=cat.cat_id) }}" method="post">
+                      <button type="submit" class="btn btn-flat tooltipped red-text"  data-position="top" data-tooltip="Delete"  style="padding-left:0px !important;"><i class="material-icons">delete</i></button>
+                    </form>
+                  </td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  {% else %}
+    <div style="text-align: center">
+      <h5> No Categories defined in the database </h5>
+      <hr/>
+      <a href="/admin/add_cat" class="btn purple darken-2" style="margin:2em 0 5em  0;">
+        <i class="material-icons"> add</i> add a category</a>
+    </div>
+  {% endif %}
+{% endblock %}

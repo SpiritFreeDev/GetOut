@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <div style="display: block; text-align: center; padding-top:200px">
+    <h4>{{ employee.first_name }},</h4>
+    <h4>Our records show that you have not confirmed</h4>
+    <h4>your email after registration</h4>
+    <br>
+    <br>
+    <h4>Please confirm your email now to Sign in</h4>
+    <h3></h3>
+    <br>
+    <br>
+    <form action="{{ url_for('home.confirm_email_request', email=employee.email) }}" method="post">
+      <input type="submit" name="" value="Verify" class="btn btn-sm btn-primary">
+    </form>
+    <a href="/login" class="btn btn-danger"><span class="fas fa-unlock-alt"></span> Cancel</a>
+    <!-- <a href="confirm_email/{{employee.user_id}}" class="btn btn-sm btn-info">Verify</a> -->
+    <!-- <a href="{{ url_for('home.reset_password', token=token, _external=True) }}"> -->
+    <!-- <button class="btn btn-sm btn-info" onclick="send_verify_email_address({{ employee }}, 1800)">Verify</button> -->
+
+  </div>
+{% endblock %}

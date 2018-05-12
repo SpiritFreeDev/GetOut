@@ -2,33 +2,245 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import custom styles-->
+    <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='styles/countdown.css') }}">
+    <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='styles/social.css') }}">
+    <!-- <link rel="stylesheet" type=text/css href="static/styles/dataTables.material.min.css"> -->
+    <!--Import materialize.css-->
+    <!-- <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <!-- <link rel="stylesheet" href="static/styles/style.css"> -->
+    <!-- <link rel="stylesheet" type=text/css href="static/styles/stickyfooter.css"> -->
+
+    <!-- Using JQuery 1.12.4 for DataTables...was using 3.2.1 but it looks like the change is ok -->
+    <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <!-- <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.material.min.js"></script> -->
+    <!-- <script type="text/javascript" class="init">
+
+      $(document).ready(function() {
+      	$('#example').DataTable( {
+      		columnDefs: [
+      			{
+      				targets: [ 0, 1, 2 ],
+      				className: 'mdl-data-table__cell--non-numeric'
+      			}
+      		]
+      	} );
+      } );
+
+  	</script> -->
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Get Out</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
-    <!-- Custom styles for sticky footer
-         Note: Flask requires a static folder -->
-    <link rel="stylesheet" href="static/styles/style.css">
-    <link rel="stylesheet" type=text/css href="static/styles/stickyfooter.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.0.1/js/all.js"></script>
+    <style>
+      @media only screen and (max-width : 992px) {
+        .parallax img {
+          max-height: 150%;
+        }
+      }
+      @media only screen and (min-width: 993px) {
+        .parallax img {
+          max-height: 190%;
+        }
+      }
+      /* default height is 500px */
+      .parallax-container.first-img {
+        height: 100vh !important;
+      }
+      .scroll-icon {
+        position:absolute;
+        bottom: 5%;
+        left:47%;
+        opacity: 0.65;
+      }
+      /* Forms: label focus color */
+      .input-field input:focus + label {
+        color: #9c27b0 !important;
+      }
+      /* Forms: label underline focus color */
+      .input-field input:focus {
+        border-bottom: 1px solid #9c27b0 !important;
+        box-shadow: 0 1px 0 0 #9c27b0 !important
+      }
+      /* Navbar active color */
+      .nav-wrapper li.active {
+        background:#5e35b1;
+      }
+      /* Register button */
+      .btn-extended {
+        display: block;
+        width: 100%;
+      }
+      /* flash dismiss icon */
+      .icon_style{
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        font-size: 20px;
+        color: black;
+        cursor:pointer;
+      }
+      .section-how {
+        /* background-image: linear-gradient(to right, #5ee7df 0%, #b490ca 100%); */
+        /* background-image: linear-gradient(to top, #00c6fb 0%, #005bea 100%); */
+        /* background-image: linear-gradient(to top, #4fb576 0%, #44c489 30%, #28a9ae 46%, #28a2b7 59%, #4c7788 71%, #6c4f63 86%, #432c39 100%); */
+        /* background-image: linear-gradient(to top, #92fe9d 0%, #00c9ff 100%); */
+        /* background-image: linear-gradient(-20deg, #d558c8 0%, #24d292 100%); */
+        background-image: linear-gradient(-225deg, #2CD8D5 0%, #6B8DD6 48%, #8E37D7 100%);
+      }
+      .section-how2 {
+        /* background-image: linear-gradient(to right, #5ee7df 0%, #b490ca 100%); */
+        /* background-image: linear-gradient(to top, #00c6fb 0%, #005bea 100%); */
+        /* background-image: linear-gradient(to top, #4fb576 0%, #44c489 30%, #28a9ae 46%, #28a2b7 59%, #4c7788 71%, #6c4f63 86%, #432c39 100%); */
+        /* background-image: linear-gradient(to top, #92fe9d 0%, #00c9ff 100%); */
+        /* background-image: linear-gradient(-20deg, #d558c8 0%, #24d292 100%); */
+        background-image: linear-gradient(to top, #005bea 0%, #24d292 48%, #00c6fb 100%);
+      }
+      .section-sponsor {
+        background-image: linear-gradient(to top, #5ee7df 0%, #b490ca 100%);
+      }
+      .img-content {
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        height: 300px;
+      }
+      .row-1, .row-2, .row-3, .row-4, .row-5, .row-6, .row-7 {
+        opacity: 0;
+      }
+
+    </style>
   </head>
-  <body>
-     {% include 'includes/_navbar.html' %}
-     <main role="main" class="container">
-       <div class="container">
-         {% block body %} {% endblock %}
-       </div>
-     </main>
-     <br>
-     <footer class="footer bg-dark">
-       <div class="container">
-         <span class="small text-secondary float-right" style="padding-left: 7px">Get Out Logo - Copyright &copy; 2018. &copy; </span>
-         <a class="text-secondary float-left" style="padding-left: 7px" href="/"> Home </a>
-         <a class="text-secondary float-left" style="padding-left: 7px" href="/about"> About</a>
-         <span class="small text-white float-right"> All rights reserved</span>
-       </div>
-     </footer>
-     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+
+  <body id="home" class="scrollspy">
+    {% include 'includes/_navbar.html' %}
+    <!-- get flash messages display -->
+    {% include "includes/_flashmsg.html" %}
+
+    {% block body %} {% endblock %}
+
+    {% include 'includes/_footer.html' %}
+
+    <!-- login modal -->
+    <!-- <div id="login-modal" class="modal">
+      <div class="modal-content">
+        <h4 class="purple-text text-darken-3">Sign into your account</h4>
+        <br>
+        <form>
+          <div class="input-field">
+            <input type="email" id="email">
+            <label for="email">Email</label>
+          </div>
+          <div class="input-field">
+            <input type="password" id="password">
+            <label for="password">Password</label>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <a href="" class="modal-action modal-close btn  blue lighten-2">
+          <i class="fa fa-sync"></i> Reset Password</a>
+        <a href="" class="modal-action modal-close btn purple darken-2">
+          <i class="fa fa-lock"></i> Sign in</a>
+      </div>
+    </div> -->
+
+    <!--Import jQuery before materialize.js-->
+    <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
+    <!-- <script type="text/javascript" src="js/materialize.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+    <script src="{{ url_for('static', filename='js/countdown.js') }}"></script>
+    <script>
+        window.onbeforeunload = function () {
+          window.scrollTo(0, 0);
+        }
+        $(document).ready(function () {
+          // $(document).scrollTop(0);
+          $(".button-collapse").sideNav();
+          $('.parallax').parallax();
+          $('.scrollspy').scrollSpy();
+          // TO DO make the Feature active in nav bar
+          $(document).on('click', '.scroll-icon', function() {
+              var selector = this.getAttribute('href');
+              $(".nav-wrapper li").removeClass("active");
+              //now find the li with the a tag with the href= to #how and add class active to the li
+              // $('.nav-wrapper a[href="#how"]').parent('li').addClass("active");
+              $(".nav-wrapper a[href='"+selector+"']").parent('li').addClass("active");
+          });
+          $('.modal').modal();
+          $('.dropdown-button').dropdown({
+            constrainWidth: true,
+            // hover: true,
+            belowOrigin: true,
+            alignment: 'left'
+          });
+          // Flash alert box fadeout
+          $('#alert_close').on('click',function() {
+            $("#alert_box").fadeOut( "slow");
+          });
+          // scrollFire May be gone with the latest materialize :-(
+          const options = [
+            {
+              selector: '.row-1', offset:50, callback: function(el) {
+                Materialize.fadeInImage($(el));
+              }
+            },
+            {
+              selector: '.row-2', offset:300, callback: function(el) {
+                Materialize.fadeInImage($(el));
+              }
+            },
+            {
+              selector: '.row-3', offset:400, callback: function(el) {
+                Materialize.fadeInImage($(el));
+              }
+            },
+            {
+              selector: '.row-4', offset:50, callback: function(el) {
+                Materialize.fadeInImage($(el));
+              }
+            },
+            {
+              selector: '.row-5', offset:300, callback: function(el) {
+                Materialize.fadeInImage($(el));
+              }
+            },
+            {
+              selector: '.row-6', offset:400, callback: function(el) {
+                Materialize.fadeInImage($(el));
+              }
+            },
+            {
+              selector: '.row-7', offset:500, callback: function(el) {
+                Materialize.fadeInImage($(el));
+              }
+            }
+          ]
+          Materialize.scrollFire(options);
+        });
+    </script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+         $(document).on('click', '.nav-wrapper li', function() {
+             $(".nav-wrapper li").removeClass("active");
+             $(this).addClass("active");
+         });
+      });
+    </script>
+    <!-- <script type="text/javascript">
+      // Flash alert box dismiss function
+      $(document).ready(function() {
+        $('#alert_close').click(function(){
+          $("#alert_box").fadeOut( "slow");
+        });
+      });
+    </script> -->
+
   </body>
 </html>

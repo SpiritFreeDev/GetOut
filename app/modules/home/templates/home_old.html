@@ -1,0 +1,200 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <!-- Countdown section -->
+    <!-- css added to first-img to make it larger -->
+    <div class="parallax-container first-img">
+      <div class="parallax">
+        <img src="static/img/DSCF6185.JPG">
+      </div>
+      <div class="center entry-text">
+        <h4>A social network for Adventurers</h4>
+        <h2>Coming Soon</h2>
+        <div class="countdown"></div>
+        <a href="#how" class="scroll-icon white-text"><i class="material-icons medium">arrow_drop_down_circle</i></a>
+      </div>
+    </div>
+
+
+  <!-- <main role="main">
+    <div class="container">
+      <section class="landing">
+        <div class="center">
+          <h4>A social network for Adventurers</h4>
+          <h2>Coming Soon</h2>
+          <div class="countdown"></div>
+          <br><br><br><br><br>
+          <br><br><br><br><br>
+          {% if session.logged_in == NULL %}
+            <a href="/register" class="btn white purple-text">Register</a>
+            <a href="/login" class="btn white blue-text">Sign In</a>
+          {% endif %}
+        </div>
+      </section>
+    </div>
+  </main> -->
+
+  <!-- How to Section-->
+  <section id="how" class="section section-how blue white-text scrollspy">
+    <div class="container">
+      <div class="row">
+        <div class="col s12 m6">
+          <h1>This is a blue section</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="parallax-container">
+    <div class="parallax">
+      <img src="static/img/DSCF6437.JPG">
+    </div>
+  </div>
+
+  <!-- Follow-us Section-->
+  <section id="connect" class="section section-follow green lighten-4 black-text scrollspy">
+    <div class="container">
+      <div class="row">
+        <div class="col s12">
+          <h4>Follow GetOut on social media</h4>
+          <a href="https://facebook.com" target="_blank">
+            <i style="color: #3b5998;margin: 5px 15px;" class="fab fa-facebook fa-2x"></i>
+          </a>
+          <a href="https://instagram.com" target="_blank">
+            <img style="width:25px; height: 25px;margin: 5px 15px;" src="/static/img/Instagram.svg" class="fa-2x"></img>
+          </a>
+          <a href="https://twitter.com" target="_blank">
+            <i style="color: #0084b4;margin: 5px 15px;" class="fab fa-twitter fa-2x"></i>
+          </a>
+          <a href="https://pinterest.com" target="_blank">
+            <i style="color: #C92228;margin: 5px 15px;" class="fab fa-pinterest fa-2x"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="container">
+    <header>
+      <h1>Follow GetOut On Social Media</h1>
+    </header>
+    <ul class="accordion">
+      <li class="tab">
+        <div class="social youtube">
+          <a href="https://youtube.com/traversymedia" target="_blank">Youtube</a>
+        </div>
+        <div class="content">
+          <h1>YouTube</h1>
+          <p>Follow GetOut on YouTube for amazing videos from our users</p>
+        </div>
+      </li>
+      <li class="tab">
+        <div class="social twitter">
+          <a href="https://twitter.com/traversymedia" target="_blank">Twitter</a>
+        </div>
+        <div class="content">
+          <h1>Twitter</h1>
+          <p>Follow GetOut on Twitter announcements, updates, article & blog shares and more</p>
+        </div>
+      </li>
+      <li class="tab">
+        <div class="social facebook">
+          <a href="https://facebook.com/traversymedia" target="_blank">Facebook</a>
+        </div>
+        <div class="content">
+          <h1>Facebook</h1>
+          <p>Follow GetOut on Facebook to stay up to date and get notified of new pictures, videos, events, etc</p>
+        </div>
+      </li>
+      <li class="tab">
+        <div class="social linkedin">
+          <a href="https://www.linkedin.com/in/bradtraversy" target="_blank">LinkedIn</a>
+        </div>
+        <div class="content">
+          <h1>LinkedIn</h1>
+          <p>Connect with GetOut on a professional level on Linkedin</p>
+        </div>
+      </li>
+      <li class="tab">
+        <div class="social instagram">
+          <a href="http://instagram.com/traversymedia" target="_blank">Instagram</a>
+        </div>
+        <div class="content">
+          <h1>Instagram</h1>
+          <p>Follow GetOut on Instragram for amazing adventure pictures</p>
+        </div>
+      </li>
+      <li class="tab">
+        <div class="social github">
+          <a href="http://github.com/bradtraversy" target="_blank">Github</a>
+        </div>
+        <div class="content">
+          <h1>Github</h1>
+          <p>Not sure we will be on GitHub</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="parallax-container">
+    <div class="parallax">
+      <img src="static/img/img10.jpg">
+    </div>
+  </div>
+  <!-- Photo Galery Section-->
+  <section id="gallery" class="section section-photos white black-text scrollspy">
+    <div class="container">
+      <h4 class="center">
+        <span class="purple-text text-darken-2">Photo </span>Gallery
+      </h4>
+      <div class="row">
+        <div class="col s12 m3">
+          <img class="materializedboxed responsive-img"
+           src="https://source.unsplash.com/1600x900/?ski"
+           alt="">
+        </div>
+        <div class="col s12 m3">
+          <img class="materializedboxed responsive-img"
+           src="https://source.unsplash.com/1600x900/?scuba"
+           alt="">
+        </div>
+        <div class="col s12 m3">
+          <img class="materializedboxed responsive-img"
+           src="https://source.unsplash.com/1600x900/?marathon"
+           alt="">
+        </div>
+        <div class="col s12 m3">
+          <img class="materializedboxed responsive-img"
+           src="https://source.unsplash.com/1600x900/?mountain"
+           alt="">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12 m3">
+          <img class="materializedboxed responsive-img"
+           src="https://source.unsplash.com/1600x900/?cycling"
+           alt="">
+        </div>
+        <div class="col s12 m3">
+          <img class="materializedboxed responsive-img"
+           src="https://source.unsplash.com/1600x900/?skydiving"
+           alt="">
+        </div>
+        <div class="col s12 m3">
+          <img class="materializedboxed responsive-img"
+           src="https://source.unsplash.com/1600x900/?hike"
+           alt="">
+        </div>
+        <div class="col s12 m3">
+          <img class="materializedboxed responsive-img"
+           src="https://source.unsplash.com/1600x900/?climbing,mountain"
+           alt="">
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="parallax-container">
+    <div class="parallax">
+      <img src="static/img/img11.jpg">
+    </div>
+  </div>
+
+{% endblock %}

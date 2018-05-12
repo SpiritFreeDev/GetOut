@@ -1,0 +1,56 @@
+{% extends 'adminlayout.html' %}
+
+{% block body %}
+<section class="section section-usercard">
+  <div class="col s12 m8 offset-m2 l6 offset-l3" style="padding-left:30px;padding-right:30px;">
+    <div class="card grey lighten-2 grey-text text-darken-4 z-depth-2">
+      <div class="row ">
+        <div class="col s2">
+          <img src="http://www.american.edu/uploads/profiles/large/chris_palmer_profile_11.jpg" alt="" class="circle" style="width:70% !important;margin-top:20px; margin-left:20px;">
+        </div>
+        <div class="col s10">
+          <h4><a class="purple-text text-darken-2">{{user.first_name}} {{user.last_name}}</a></h4>
+          {% if user.is_sysadmin %}
+             <h5><i class="material-icons" >supervisor_account</i> System Administrator</h5>
+          {% else %}
+             <h5>User</h5>
+          {% endif %}
+        </div>
+        <div class="fixed-action-btn">
+          <!-- Action button - Bottom Right -->
+          <a class="btn-floating btn-large blue pulse">
+            <i class="large material-icons">publish</i>
+          </a>
+          <ul>
+            <li>
+              {% if user.is_locked %}
+                <form action="{{ url_for('admin.lock_user_toggle', id=user.user_id) }}" method="post">
+                  <button type="submit" class="btn-floating red tooltipped"  data-position="left" data-tooltip="Unlock account"  style="padding-left:0px !important;"><i class="material-icons">lock_outline</i></button>
+                </form>
+              {% else %}
+                <form action="{{ url_for('admin.lock_user_toggle', id=user.user_id) }}" method="post">
+                  <button type="submit" class="btn-floating green tooltipped"  data-position="left" data-tooltip="Lock account"  style="padding-left:0px !important;"><i class="material-icons">lock_open</i></button>
+                </form>
+              {% endif %}
+            </li>
+            <li><a  href="{{ url_for('admin.edit_user', id=user.user_id) }}" class="btn-floating yellow darken-1 tooltipped"  data-position="left" data-tooltip="Edit User"><i class="material-icons">edit</i></a></li>
+            <!-- <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
+            <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li> -->
+          </ul>
+        </div>
+      </div>
+      <div class="card-content col s12">
+        <h6>Registered under {{user.username}} on {{user.register_date}}</h6>
+        <h6>Email: <a class="text-info" href="mailto:{{user.email}}?Subject=PyApp%20email">{{user.email | safe}}</a>
+        {% if not user.email_confirmed %}<h6 class="red-text"> (Email not verified)</h6>{% endif %}
+        {% if user.is_locked %}<h6 class="red-text"> (Account is locked)</h6>{% endif %}
+        </h6>
+      </div>
+  </div>
+  <br>
+  <h4>User History</h4>
+  <h6 class="blue-text">Add profile information to card above</h6>
+  <h6 class="blue-text">Display user history table</h6>
+
+</section>
+{% endblock %}

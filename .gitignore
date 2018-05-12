@@ -1,4 +1,11 @@
 instance/
 stuff/
 __pycache__/
-views/__pycache__/
+app/__pycache__/
+app/modules/__pycache__/
+app/modules/admin/__pycache__/
+app/modules/home/__pycache__/
+app/modules/user/__pycache__/
+app/modules/auth/
+app/static/img/sport-cat/
+URSFSDS.xlsx

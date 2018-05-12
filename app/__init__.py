@@ -1,17 +1,22 @@
 import os
 from flask import Flask, render_template, flash, abort, Blueprint
-#from flask_sqlalchemy import SQLAlchemy, inspect
-#from flask_migrate import Migrate
+from base64 import b64encode
+from os import urandom
+import jinja2
+from flask_sqlalchemy import SQLAlchemy, inspect
+from flask_migrate import Migrate
 
 from config import app_config
 
-#db = SQLAlchemy()
+db = SQLAlchemy()
 
 def create_app(config_name, path):
     if os.getenv('FLASK_CONFIG') == "production":
+        random_bytes = urandom(64)
         app = Flask(__name__.split('.')[0])
         app.config.update(
             SECRET_KEY=os.getenv('SECRET_KEY'),
+            #SECRET_KEY = b64encode(random_bytes).decode('utf-8')
             #SQLALCHEMY_DATABASE_URI=os.getenv('SQLALCHEMY_DATABASE_URI')
         )
     else:
@@ -19,20 +24,36 @@ def create_app(config_name, path):
         app.config.from_object(app_config[config_name])
         app.config.from_pyfile('config.cfg')
 
-    # --- Database
-    #db.init_app(app)
-    #migrate = Migrate(app, db)
+    # Define search paths for the html templates
+    # ! need to watch the html file names as identical names in different module may give unexpected results
+    # Don't call all your module entry page home.html... as the first one found will be used
+    my_loader = jinja2.ChoiceLoader([
+            app.jinja_loader,
+            jinja2.FileSystemLoader(['app/modules',
+                                     'app/modules/home',
+                                     'app/modules/admin',
+                                     'app/modules/user']),
+        ])
+    app.jinja_loader = my_loader
 
-    # from . import models
+    # --- Database
+    db.init_app(app)
+    migrate = Migrate(app, db)
+
+    from app.modules import models
 
     # Home routes
-    # from .views.home import home as home_blueprint
-    # app.register_blueprint(home_blueprint)
+    from .modules.home.views.home import home as home_blueprint
+    app.register_blueprint(home_blueprint)
 
     # Admin routes
-    # from .views.admin import admin as admin_blueprint
-    # app.register_blueprint(admin_blueprint, url_prefix='/admin')
-    #
+    from .modules.admin.views.admin import admin as admin_blueprint
+    app.register_blueprint(admin_blueprint, url_prefix='/admin')
+
+    # Users routes
+    from .modules.user.views.user import user as user_blueprint
+    app.register_blueprint(user_blueprint, url_prefix='/user')
+
     # from .views.dbusers import dbusers as dbusers_blueprint
     # app.register_blueprint(dbusers_blueprint)
 

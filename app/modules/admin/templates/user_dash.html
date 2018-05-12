@@ -1,0 +1,75 @@
+{% extends 'adminlayout.html' %}
+
+{% block body %}
+  <div class="container center black-text">
+    <h1> <span class="purple-text text-darken-2">User</span> Dashboard</h1>
+    <p>Add, Edit, Lock, Delete user accounts and view user activity</p>
+  </div>
+  {% if users %}
+    <div class="row">
+      <div id="user" class="col s12">
+        <div class="card material-table">
+          <div class="table-header">
+            <span class="table-title">Users ({{count}})</span>
+            <div class="actions">
+              <a href="/admin/add_user" class="modal-trigger waves-effect btn-flat tooltipped nopadding" data-position="top" data-tooltip="Add User"><i class="material-icons">person_add</i></a>
+              <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
+            </div>
+          </div>
+          <table id="datatable">
+            <thead class="light-blue accent-1">
+                <tr>
+                    <th>Name</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Joined</th>
+                    <th>Actions</th>
+                    <th>Lock/Unlock</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+              {% for user in users %}
+
+                  <tr>
+                    {% if user.is_sysadmin %}
+                      <td><a class="light-blue-text" href="user/{{user.user_id}}"><i class="material-icons" >supervisor_account</i>{{user.first_name}} {{user.last_name}}</a></td>
+                    {% else %}
+                      <td><a class="light-blue-text" href="user/{{user.user_id}}">{{user.first_name}} {{user.last_name}}</a></td>
+                    {% endif %}
+                    <td>{{user.username}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.register_date}}</td>
+                    <td >
+                      <a href="edit_user/{{user.user_id}}" class="modal-trigger waves-effect btn-flat tooltipped nopadding" data-position="top" data-tooltip="Edit" style="padding-left:0px !important;"><i class="material-icons blue-text" >edit</i></a>
+                      <a href="" class="modal-trigger waves-effect btn-flat tooltipped nopadding" data-position="top" data-tooltip="User History" style="padding-left:0px !important;"><i class="material-icons" >history</i></a>
+                    </td>
+                    <td>
+                      {% if user.is_locked %}
+                        <form action="{{ url_for('admin.lock_user_toggle', id=user.user_id) }}" method="post">
+                          <button type="submit" class="btn btn-flat tooltipped red-text"  data-position="top" data-tooltip="Unlock account"  style="padding-left:0px !important;"><i class="material-icons">lock_outline</i></button>
+                        </form>
+                      {% else %}
+                        <form action="{{ url_for('admin.lock_user_toggle', id=user.user_id) }}" method="post">
+                          <button type="submit" class="btn btn-flat tooltipped green-text"  data-position="top" data-tooltip="Lock account"  style="padding-left:0px !important;"><i class="material-icons">lock_open</i></button>
+                        </form>
+                      {% endif %}
+                    </td>
+                    <td>
+                      <form action="{{ url_for('admin.delete_user', id=user.user_id) }}" method="post">
+                        <button type="submit" class="btn btn-flat tooltipped red-text"  data-position="top" data-tooltip="Delete"  style="padding-left:0px !important;"><i class="material-icons">delete</i></button>
+                      </form>
+                    </td>
+                  </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div style="text-align: center">
+      <h3> No Users in the Database </h3>
+    </div>
+  {% endif %}
+{% endblock %}

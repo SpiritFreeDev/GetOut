@@ -1,0 +1,83 @@
+<!-- Dropdown NavBar menu -->
+<ul id="dropdown1" class="dropdown-content">
+  <li><a href="#!">{{session.username}}</a></li>
+  <li><a href="user/{{session.userid}}">My Profile</a></li>
+  <!-- <li><a href="/user/{{session.userid}}">My Activities</a></li> -->
+  <li class="divider"></li>
+  <li><a href="/reset_password_request">Reset Pwd</a></li>
+  <li><a href="/logout">Logout</a></li>
+  <li><a href="/user/settings">Settings</a></li>
+</ul>
+<!-- Dropdown Side menu -->
+<ul id="dropdown2" class="dropdown-content">
+  <li><a href="#!">{{session.username}}</a></li>
+  <li><a href="user/{{session.userid}}">My Profile</a></li>
+  <!-- <li><a href="/user/{{session.userid}}">My Activities</a></li> -->
+  <li class="divider"></li>
+  <li><a href="/reset_password_request">Reset Pwd</a></li>
+  <li><a href="/logout">Logout</a></li>
+  <li><a href="/user/settings">Settings</a></li>
+</ul>
+<!-- Navigation bar -->
+<header>
+  <div class="navbar-fixed">
+    <nav>
+      <div class="nav-wrapper deep-purple darken-3">
+          <div class="container">
+          <a href="#!" class="brand-logo">GetOut Logo</a>
+          <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="material-icons">menu</i></a>
+          <!-- Menu -->
+          <ul class="right hide-on-med-and-down">
+            <!-- <li class="active"><a href="/">Home</a></li> -->
+            <!-- <li><a href="#about">About</a></li> -->
+
+            <!-- <li><a href="#" class="dropdown-button" href="#!" data-activates="dropdown1">drop</a></li> -->
+            {% if session.admin %}
+              <li class="active"><a href="/admin/home">Home</a></li>
+              <li ><a href="/admin/user_dash">Users</a></li>
+              <li ><a href="/admin/cat_dash">Categories</a></li>
+              <li ><a href="#">Site stats</a></li>
+              <li><a class="dropdown-button" href="#!" data-activates="dropdown2">Welcome {{session.name}}<i class="material-icons right">arrow_drop_down</i></a></li>
+            {% else %}
+              <li class="active"><a href="/admin/user_dash">Users</a></li>
+              <li><a href="/admin/cat_dash">Categories</a></li>
+              <li><a href="#">Site stats</a></li>
+              <!-- <li><a class="btn deep-purple darken-1 modal-trigger" href="/login">Sign In</a></li> -->
+            {% endif %}
+          </ul>
+
+        </div>
+      </div>
+    </nav>
+  </div>
+  <!-- Side Navigation -->
+  <ul class="side-nav" id="mobile-nav">
+    <li>
+      <div class="user-view">
+        <div class="blue background">
+          <img src="{{ url_for('static', filename='img/DSCF6185.JPG') }}"><span class="name white-text" style="padding-bottom:15px;">Coming Soon</span>
+        </div>
+        <a href="#!">
+          <img class="circle" src="{{ url_for('static', filename='img/DSCF6275.JPG') }}">
+        </a>
+        <a href="#!">
+          <span class="name white-text">GetOut - A Social network for Adventurers</span>
+          {% if session.logged_in %}
+            <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Welcome {{session.name}}<i class="material-icons right">arrow_drop_down</i></a></li>
+          {% endif %}
+        </a>
+      </div>
+    </li>
+    <li><a href="/admin/home">Home</a></li>
+    <li><a href="/admin/user_dash">Users</a></li>
+    <li><a href="/admin/cat_dash">Categories</a></li>
+    <li><a href="#">Site stats</a></li>
+    {% if session.logged_in %}
+      <!-- <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Welcome {{session.name}}<i class="material-icons right">arrow_drop_down</i></a></li> -->
+    {% else %}
+
+      <li><a href="/register">Register</a></li>
+      <li><a href="/login">Sign In</a></li>
+    {% endif %}
+  </ul>
+</header>

@@ -1,0 +1,53 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <!-- Login Section-->
+  <section class="section section-login">
+    <div class="container">
+      <div class="row">
+        <div class="col s12 m12">
+          <div class='card'>
+            <div class='card-image waves-effect waves-light waves-block'>
+              <img src="{{ url_for('static', filename='img/DSCF6437.jpg') }}" alt="" class="activator">
+            </div>
+            <div class='card-content'>
+              <a href="#/" class="btn purple darken-2 activator">
+                <i class="fa fa-lock"></i> Sign in</a>
+                <a href="#/" class="modal-action modal-close btn  blue lighten-2 activator">
+                  <i class="fa fa-sync"></i> Forgot your Password</a>
+            </div>
+            <!-- inside of reveal -->
+            <div class='card-reveal'>
+              <span class='card-title'>Sign in
+                <i class='material-icons right'>close</i>
+              </span>
+              <!-- Import render_field jinja2 macro to display form and manage errors -->
+              {% from "includes/_formhelpers.html" import render_field %}
+              <form action="" class="center" method="post" >
+                {{ form.hidden_tag() }}
+                <div class="input-field">
+                  {{render_field(form.username)}}
+                </div>
+                <div class="input-field">
+                  {{render_field(form.password)}}
+                </div>
+                <br><br>
+                <input type="submit" value="Sign In" class="btn purple darken-2">
+                <!-- <a href="" class="btn purple darken-2">
+                  <i class="fa fa-lock"></i> Sign in</a> -->
+                <br><br><br><br>
+                <p>
+                  Forgot Your Password?
+                  <a href="" class="modal-action modal-close btn  blue lighten-2">
+                    <i class="fa fa-sync"></i>    Reset Password</a>
+                </p>
+              </form>
+            </div>
+            <!-- End reveal -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}
